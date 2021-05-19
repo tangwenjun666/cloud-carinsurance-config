@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    active: -dev
+
+---
+#系统配置信息
+server: 
+  port: 8888
+spring:
+  profiles: authority
+  application:
+    name: cloud-config-authority
+  #数据源配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/authority?characterEncoding=utf-8
+    username: root
+    password:
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.xt.pojo
+
+---
+#测试配置
+spring:
+  profiles: test
+  application:
+    name: cloud-config-test
