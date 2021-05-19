@@ -56,7 +56,7 @@ spring:
     gateway:
       routes:
         - id: gateway-service1  #我们自定义的路由 ID，保持唯一
-          uri: http://localhost:8888  #目标服务地址
+          uri: lb://cloud-config-authority  #目标服务地址
           predicates:
-          - Path=/menus/**,/roles/**,/users/**    #断言，条件满足则路由跳转
+          - Path=/**    #断言，条件满足则路由跳转
 
