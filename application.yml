@@ -38,8 +38,25 @@ mybatis:
   type-aliases-package: com.ci.pojo
 
 ---
-#测试配置
+#网关配置
+server:
+  port: 7788
 spring:
-  profiles: test
+  profiles: gateway
   application:
-    name: cloud-config-test
+    name: cloud-gateway
+  cloud:
+    #注册到consul注册中心
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+    #gateway网关路由配置
+    gateway:
+      routes:
+        - id: gateway-service1  #我们自定义的路由 ID，保持唯一
+          uri: http://localhost:8888  #目标服务地址
+          predicates:
+          - Path=/menus/**,/roles/**,/users/**    #断言，条件满足则路由跳转
+
